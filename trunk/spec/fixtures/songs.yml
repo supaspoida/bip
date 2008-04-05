@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  band_id: 1
+  name: MyString
+  lyrics: MyText
+
+two:
+  band_id: 1
+  name: MyString
+  lyrics: MyText

@@ -1,0 +1,28 @@
+<p>
+  <b>Appearance:</b>
+  <%=h @performance.appearance_id %>
+</p>
+
+<p>
+  <b>Song:</b>
+  <%=h @performance.song_id %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @performance.notes %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%=h @performance.position %>
+</p>
+
+<p>
+  <b>Segue:</b>
+  <%=h @performance.segue %>
+</p>
+
+
+<%= link_to 'Edit', edit_performance_path(@performance) %> |
+<%= link_to 'Back', performances_path %>

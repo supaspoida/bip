@@ -1,0 +1,10 @@
+<ul>
+<% if user_logged_in? %>
+  <li>Logged in as: <i><%= current_user.login %></i></li>
+  <li><%= logout_link %></li>
+<% else %>
+  <li><%= login_link %></li>
+  <li><%= signup_link %></li>
+<% end %>
+</ul>
+

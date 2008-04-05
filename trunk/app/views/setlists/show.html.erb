@@ -1,0 +1,28 @@
+<p>
+  <b>Appearance:</b>
+  <%=h @setlist.appearance_id %>
+</p>
+
+<p>
+  <b>Band:</b>
+  <%=h @setlist.band_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @setlist.user_id %>
+</p>
+
+<p>
+  <b>Approved:</b>
+  <%=h @setlist.approved %>
+</p>
+
+<p>
+  <b>Performances cache:</b>
+  <%=h @setlist.performances_cache %>
+</p>
+
+
+<%= link_to 'Edit', edit_setlist_path(@setlist) %> |
+<%= link_to 'Back', setlists_path %>

@@ -1,0 +1,28 @@
+<p>
+  <b>Venue:</b>
+  <%=h @show.venue_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @show.date %>
+</p>
+
+<p>
+  <b>Doors:</b>
+  <%=h @show.doors %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @show.notes %>
+</p>
+
+<p>
+  <b>Announced at:</b>
+  <%=h @show.announced_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_show_path(@show) %> |
+<%= link_to 'Back', shows_path %>

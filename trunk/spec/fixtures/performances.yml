@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  appearance_id: 1
+  song_id: 1
+  notes: MyText
+  position: 1
+  segue: false
+
+two:
+  appearance_id: 1
+  song_id: 1
+  notes: MyText
+  position: 1
+  segue: false

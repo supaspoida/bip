@@ -1,0 +1,22 @@
+<h1>Listing venues</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Permalink</th>
+  </tr>
+
+<% for venue in @venues %>
+  <tr>
+    <td><%=h venue.name %></td>
+    <td><%=h venue.permalink %></td>
+    <td><%= link_to 'Show', venue %></td>
+    <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
+    <td><%= link_to 'Destroy', venue, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New venue', new_venue_path %>

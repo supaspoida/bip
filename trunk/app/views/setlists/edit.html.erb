@@ -1,0 +1,32 @@
+<h1>Editing setlist</h1>
+
+<% form_for(@setlist) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+		<%= f.label :appearance_id %><br />
+    <%= f.text_field :appearance_id %>
+  </p>
+  <p>
+		<%= f.label :band_id %><br />
+    <%= f.text_field :band_id %>
+  </p>
+  <p>
+		<%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+		<%= f.label :approved %><br />
+    <%= f.check_box :approved %>
+  </p>
+  <p>
+		<%= f.label :performances_cache %><br />
+    <%= f.text_field :performances_cache %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @setlist %> |
+<%= link_to 'Back', setlists_path %>

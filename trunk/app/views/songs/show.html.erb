@@ -1,0 +1,18 @@
+<p>
+  <b>Band:</b>
+  <%=h @song.band_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @song.name %>
+</p>
+
+<p>
+  <b>Lyrics:</b>
+  <%=h @song.lyrics %>
+</p>
+
+
+<%= link_to 'Edit', edit_song_path(@song) %> |
+<%= link_to 'Back', songs_path %>

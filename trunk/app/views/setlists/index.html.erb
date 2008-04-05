@@ -1,0 +1,28 @@
+<h1>Listing setlists</h1>
+
+<table>
+  <tr>
+    <th>Appearance</th>
+    <th>Band</th>
+    <th>User</th>
+    <th>Approved</th>
+    <th>Performances cache</th>
+  </tr>
+
+<% for setlist in @setlists %>
+  <tr>
+    <td><%=h setlist.appearance_id %></td>
+    <td><%=h setlist.band_id %></td>
+    <td><%=h setlist.user_id %></td>
+    <td><%=h setlist.approved %></td>
+    <td><%=h setlist.performances_cache %></td>
+    <td><%= link_to 'Show', setlist %></td>
+    <td><%= link_to 'Edit', edit_setlist_path(setlist) %></td>
+    <td><%= link_to 'Destroy', setlist, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New setlist', new_setlist_path %>

@@ -1,0 +1,13 @@
+<dl>
+  <dt>Site Navigation</dt>
+  <%= session_links %>
+    <dd><%= link_to 'Users', users_url %></dd>
+  <% if false %>
+  <% if logged_in_user and logged_in_user.has_role?('administrator') %>
+  <dt>Administer</dt>
+    <dd><%= link_to 'Users', admin_users_url %></dd>
+    <dd>Manage Bands</dd>
+    <dd>Manage Shows</dd>
+  <% end %>
+  <% end #if false %>
+</dl>

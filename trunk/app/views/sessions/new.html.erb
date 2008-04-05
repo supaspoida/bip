@@ -1,0 +1,17 @@
+<fieldset>	
+<legend>Sign in to your BIP Account</legend>
+
+<% form_tag session_path do -%>
+<p><label for="login">Login</label><br/>
+<%= text_field_tag 'login' %></p>
+
+<p><label for="password">Password</label><br/>
+<%= password_field_tag 'password' %></p>
+
+<p><%= check_box_tag 'remember_me' %><label for="remember_me">Remember me:</label>
+</p>
+
+<p><%= submit_tag 'Log in' %> <%= link_to "Forgot Password?", forgot_password_url   %></p>
+<% end -%>
+
+</fieldset>

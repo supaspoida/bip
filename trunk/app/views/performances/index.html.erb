@@ -1,0 +1,28 @@
+<h1>Listing performances</h1>
+
+<table>
+  <tr>
+    <th>Appearance</th>
+    <th>Song</th>
+    <th>Notes</th>
+    <th>Position</th>
+    <th>Segue</th>
+  </tr>
+
+<% for performance in @performances %>
+  <tr>
+    <td><%=h performance.appearance_id %></td>
+    <td><%=h performance.song_id %></td>
+    <td><%=h performance.notes %></td>
+    <td><%=h performance.position %></td>
+    <td><%=h performance.segue %></td>
+    <td><%= link_to 'Show', performance %></td>
+    <td><%= link_to 'Edit', edit_performance_path(performance) %></td>
+    <td><%= link_to 'Destroy', performance, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New performance', new_performance_path %>

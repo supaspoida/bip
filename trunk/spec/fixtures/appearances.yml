@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  band_id: 1
+  show_id: 1
+  headliner: false
+  notes: MyText
+
+two:
+  band_id: 1
+  show_id: 1
+  headliner: false
+  notes: MyText
