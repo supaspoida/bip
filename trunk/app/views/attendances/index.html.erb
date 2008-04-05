@@ -1,0 +1,22 @@
+<h1>Listing attendances</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Show</th>
+  </tr>
+
+<% for attendance in @attendances %>
+  <tr>
+    <td><%=h attendance.user_id %></td>
+    <td><%=h attendance.show_id %></td>
+    <td><%= link_to 'Show', attendance %></td>
+    <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
+    <td><%= link_to 'Destroy', attendance, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New attendance', new_attendance_path %>

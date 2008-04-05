@@ -1,0 +1,26 @@
+<h1>Listing appearances</h1>
+
+<table>
+  <tr>
+    <th>Band</th>
+    <th>Show</th>
+    <th>Headliner</th>
+    <th>Notes</th>
+  </tr>
+
+<% for appearance in @appearances %>
+  <tr>
+    <td><%=h appearance.band_id %></td>
+    <td><%=h appearance.show_id %></td>
+    <td><%=h appearance.headliner %></td>
+    <td><%=h appearance.notes %></td>
+    <td><%= link_to 'Show', appearance %></td>
+    <td><%= link_to 'Edit', edit_appearance_path(appearance) %></td>
+    <td><%= link_to 'Destroy', appearance, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New appearance', new_appearance_path %>

@@ -1,0 +1,23 @@
+<p>
+  <b>Band:</b>
+  <%=h @appearance.band_id %>
+</p>
+
+<p>
+  <b>Show:</b>
+  <%=h @appearance.show_id %>
+</p>
+
+<p>
+  <b>Headliner:</b>
+  <%=h @appearance.headliner %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @appearance.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_appearance_path(@appearance) %> |
+<%= link_to 'Back', appearances_path %>

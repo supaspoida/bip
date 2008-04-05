@@ -1,0 +1,28 @@
+<h1>Editing appearance</h1>
+
+<% form_for(@appearance) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+		<%= f.label :band_id %><br />
+    <%= f.text_field :band_id %>
+  </p>
+  <p>
+		<%= f.label :show_id %><br />
+    <%= f.text_field :show_id %>
+  </p>
+  <p>
+		<%= f.label :headliner %><br />
+    <%= f.check_box :headliner %>
+  </p>
+  <p>
+		<%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @appearance %> |
+<%= link_to 'Back', appearances_path %>
