@@ -9,6 +9,10 @@ describe SessionsHelper do
   it "should display a link to start a new session" do
     login_link.should have_tag('a', 'Login')
   end
+  
+  it "should should display a link to signup" do
+    signup_link.should have_tag('a', 'Signup')
+  end
     
   it "should render the session links partial" do
     self.should_receive(:render).

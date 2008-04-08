@@ -8,7 +8,6 @@ describe "/pages/new.html.erb" do
     @page.stub!(:new_record?).and_return(true)
     @page.stub!(:user_id).and_return("1")
     @page.stub!(:title).and_return("MyString")
-    @page.stub!(:permalink).and_return("MyString")
     @page.stub!(:body).and_return("MyText")
     assigns[:page] = @page
   end
@@ -18,7 +17,6 @@ describe "/pages/new.html.erb" do
     
     response.should have_tag("form[action=?][method=post]", pages_path) do
       with_tag("input#page_title[name=?]", "page[title]")
-      with_tag("input#page_permalink[name=?]", "page[permalink]")
       with_tag("textarea#page_body[name=?]", "page[body]")
     end
   end

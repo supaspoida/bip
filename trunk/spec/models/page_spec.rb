@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 module PageSpecHelper
   def valid_page_attributes
     { :title => "This is my page",
-      :permalink => "this_is_my_permalink", 
+      :permalink => "this-is-my-permalink", 
       :body => "Hello from the body of the valid page." }
   end
 end
@@ -37,8 +37,9 @@ describe Page do
   end
   
   it "should create a permalink on save" do
+    pending "this test is not doing anything"
     @page.attributes = valid_page_attributes
-    @page.permalink.should match(/[a-zA-Z0-9_]+/)
+    @page.permalink.should match(/[^a-zA-Z0-9_]+/)
   end
   
 end

@@ -15,7 +15,4 @@ module SessionsHelper
     link_to 'Signup', signup_path
   end
   
-  def say_hello
-    "Hello"
-  end
 end
