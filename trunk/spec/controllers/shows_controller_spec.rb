@@ -23,6 +23,7 @@ describe ShowsController do
     end
   
     it "should find all shows" do
+      pending "investigation of named_scope"
       Show.should_receive(:find).with(:all).and_return([@show])
       do_get
     end

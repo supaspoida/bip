@@ -13,4 +13,14 @@ describe Setlist do
     @setlist.should have_many(:performances)
     @setlist.should have_many(:songs)
   end
+  
+  it "should belong to a user" do
+    @setlist.should belong_to(:user)
+  end
+  
+  it "should have many performances at an appearance" do
+    @setlist.should have_many(:performances)
+    @setlist.should belong_to(:appearance)
+  end
+  
 end

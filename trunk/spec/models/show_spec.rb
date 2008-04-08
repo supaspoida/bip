@@ -17,4 +17,21 @@ describe Show do
     @show.should have_many(:appearances)
     @show.should have_many(:bands)
   end
+  
+  it "should collect upcoming shows" do
+    pending "how do you spec named_scope?"
+    show = mock_model('show')
+    show.should_recieve(:upcoming)
+  end
 end
+=begin
+class HaveUpcoming
+  def initialize(expected)
+    @expected = expected
+  end
+  def matches?(target)
+    @target = target
+    @target.upcoming
+  end
+end
+=end

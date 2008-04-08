@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :shows, :has_many => [:attendances, :appearances], :has_one => :venue
   map.resources :bands, :has_many => [:appearances, :songs]
   map.resources :songs, :has_many => :performances
+  map.resources :appearances, :has_many => :performances
   
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
   map.signup '/signup', :controller => 'users', :action => 'new'
