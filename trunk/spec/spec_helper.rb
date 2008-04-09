@@ -37,4 +37,18 @@ Spec::Runner.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
+  
+  def mock_show
+
+  end
+  
+  def create_valid_show(options = {})
+    
+  end
+  
+  def create_valid_venue(options = {})
+    venue_name = options[:name] || 'valid_venue'
+    Venue.delete_all :name => venue_name
+    valid_venue = Venue.create({:name => venue_name}.merge(options))
+  end
 end

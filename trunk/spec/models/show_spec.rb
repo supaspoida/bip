@@ -20,7 +20,8 @@ describe Show do
   
   it "should collect upcoming shows" do
     pending "how do you spec named_scope?"
-    show = mock_model('show')
+    upcoming_show = create_valid_show('show')
+    archived_show = create_valid_show(:date => 7.days.ago)
     show.should_recieve(:upcoming)
   end
 end
