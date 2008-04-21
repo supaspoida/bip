@@ -19,6 +19,7 @@ describe "/shows/new.html.erb" do
     
     response.should have_tag("form[action=?][method=post]", shows_path) do
       with_tag("textarea#show_notes[name=?]", "show[notes]")
+      with_tag("select#show_venue_id[name=?]", "show[venue_id]")
     end
   end
 end

@@ -1,5 +1,5 @@
 class Show < ActiveRecord::Base
-  has_one :venue
+  belongs_to :venue
   has_many :appearances
   has_many :bands, :through => :appearances
   

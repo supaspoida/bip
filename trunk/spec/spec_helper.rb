@@ -51,4 +51,9 @@ Spec::Runner.configure do |config|
     Venue.delete_all :name => venue_name
     valid_venue = Venue.create({:name => venue_name}.merge(options))
   end
+  
+  def login
+    @user = mock_model(User)
+    controller.stub!(:current_user).and_return(@user)
+  end
 end

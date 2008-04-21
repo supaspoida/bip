@@ -23,4 +23,6 @@ describe Setlist do
     @setlist.should belong_to(:appearance)
   end
   
+  it "should be unapproved after create" 
+  
 end

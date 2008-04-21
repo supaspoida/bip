@@ -9,8 +9,8 @@ describe Show do
     @show.should be_valid
   end
   
-  it "should have one venue" do
-    @show.should have_one(:venue)
+  it "should belong to a venue" do
+    @show.should belong_to(:venue)
   end
   
   it "should have many appearances by bands" do

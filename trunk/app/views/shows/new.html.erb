@@ -5,7 +5,7 @@
 
   <p>
 		<%= f.label :venue_id %><br />
-    <%= f.text_field :venue_id %>
+    <%= collection_select("show", "venue_id", Venue.find(:all), "id", "name", :include_blank => true) %>
   </p>
   <p>
 		<%= f.label :date %><br />

@@ -40,7 +40,7 @@ class AttendancesController < ApplicationController
   # POST /attendances
   # POST /attendances.xml
   def create
-    @attendance = Attendance.new(params[:attendance])
+    @attendance = current_user.attendances.new(:show_id => params[:show_id])
 
     respond_to do |format|
       if @attendance.save
@@ -82,4 +82,5 @@ class AttendancesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
 end

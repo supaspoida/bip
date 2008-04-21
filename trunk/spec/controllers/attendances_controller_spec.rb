@@ -192,32 +192,46 @@ describe AttendancesController do
     end
   end
 
-  describe "handling POST /attendances" do
+  describe "handling POST show/1/attendances" do
 
     before(:each) do
-      @attendance = mock_model(Attendance, :to_param => "1")
-      Attendance.stub!(:new).and_return(@attendance)
+      login
+      params[:show_id] = 1
+      @attendance = mock_model(Attendance)
+      @attendance.stub!(:save)
+      @attendances_proxy = mock(Array)
+      @attendances_proxy.stub!(:new).and_return(@attendance)
+      @user.stub!(:attendances).and_return(@attendances_proxy)
+      #@show = mock_model(Show, :to_param => "1")
+      
     end
     
     describe "with successful save" do
   
       def do_post
+        #attendances_proxy.should_receive(:push).with(@attendance).and_return()
         @attendance.should_receive(:save).and_return(true)
         post :create, :attendance => {}
       end
   
       it "should create a new attendance" do
-        Attendance.should_receive(:new).with({}).and_return(@attendance)
-        do_post
+        #@attendances_proxy.should_receive(:new).with(:show_id => params[:show_id]).and_return(@attendance)
+        #do_post
+        #@attendance.should_receive(:save).and_return(true)
+        pending "deal with nested resources"
+        lambda do
+          create_attendance
+          response.should be_success
+        end.should change(Attendance, :count).by(1)
       end
 
       it "should redirect to the new attendance" do
         do_post
-        response.should redirect_to(attendance_url("1"))
+        response.should redirect_to(attendance_url(@attendance))
       end
       
     end
-    
+  
     describe "with failed save" do
 
       def do_post
@@ -309,5 +323,9 @@ describe AttendancesController do
       do_delete
       response.should redirect_to(attendances_url)
     end
+  end
+
+  def create_attendance(options = {})
+    post :create, :attendance => { :user_id => 1, :show_id => 1 }.merge(options)
   end
 end

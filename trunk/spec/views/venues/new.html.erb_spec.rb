@@ -16,7 +16,6 @@ describe "/venues/new.html.erb" do
     
     response.should have_tag("form[action=?][method=post]", venues_path) do
       with_tag("input#venue_name[name=?]", "venue[name]")
-      with_tag("input#venue_permalink[name=?]", "venue[permalink]")
     end
   end
 end
