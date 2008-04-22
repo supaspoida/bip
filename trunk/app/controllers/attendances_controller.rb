@@ -1,8 +1,9 @@
 class AttendancesController < ApplicationController
+  before_filter :get_show
   # GET /attendances
   # GET /attendances.xml
   def index
-    @attendances = Attendance.find(:all)
+    @attendances = @show.attendances
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,7 @@ class AttendancesController < ApplicationController
   # GET /attendances/1
   # GET /attendances/1.xml
   def show
-    @attendance = Attendance.find(params[:id])
+    @attendance = @show.attendances.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +25,7 @@ class AttendancesController < ApplicationController
   # GET /attendances/new
   # GET /attendances/new.xml
   def new
-    @attendance = Attendance.new
+    @attendance = @show.attendances.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,18 +35,18 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/1/edit
   def edit
-    @attendance = Attendance.find(params[:id])
+    @attendance = @show.attendances.find(params[:id])
   end
 
   # POST /attendances
   # POST /attendances.xml
   def create
-    @attendance = current_user.attendances.new(:show_id => params[:show_id])
+    @attendance = @show.attendances.build(:user_id => current_user.id)
 
     respond_to do |format|
       if @attendance.save
         flash[:notice] = 'Attendance was successfully created.'
-        format.html { redirect_to(@attendance) }
+        format.html { redirect_to([@show, @attendance]) }
         format.xml  { render :xml => @attendance, :status => :created, :location => @attendance }
       else
         format.html { render :action => "new" }
@@ -81,6 +82,10 @@ class AttendancesController < ApplicationController
       format.html { redirect_to(attendances_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def get_show
+    @show = Show.find(params[:show_id])
   end
   
 end
