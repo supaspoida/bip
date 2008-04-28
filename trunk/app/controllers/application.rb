@@ -9,4 +9,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # :secret => '7ac44687e66618afaffd84dae8c526b1'
   
   include AuthenticatedSystem
+  
+  def access_denied
+    respond_to do |format|
+      format.html do 
+        store_location
+        redirect_to new_session_path
+      end
+    end
+  end
 end

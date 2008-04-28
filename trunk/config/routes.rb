@@ -8,12 +8,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource  :session
   map.resources :venues, :pages
-  map.resources :attendances, :appearances, :performances, :setlists
+  map.resources :attendances, :appearances, :performances
   
   map.resources :shows, :has_many => [:attendances, :appearances], :has_one => :venue
-  map.resources :bands, :has_many => [:appearances, :songs]
+  map.resources :bands, :has_many => [:appearances, :songs, :setlists]
   map.resources :songs, :has_many => :performances
-  map.resources :appearances, :has_many => :performances
+  map.resources :setlists, :has_many => :performances
+  map.resources :appearances, :has_many => [:performances, :setlists] 
   
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
   map.signup '/signup', :controller => 'users', :action => 'new'

@@ -1,4 +1,11 @@
 class AppearancesController < ApplicationController
+  
+  make_resourceful do
+    actions :all
+    belongs_to :band, :show
+  end
+  
+=begin
   # GET /appearances
   # GET /appearances.xml
   def index
@@ -82,4 +89,5 @@ class AppearancesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+=end
 end

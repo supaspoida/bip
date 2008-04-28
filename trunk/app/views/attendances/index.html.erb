@@ -10,13 +10,13 @@
   <tr>
     <td><%=h attendance.user_id %></td>
     <td><%=h attendance.show_id %></td>
-    <td><%= link_to 'Show', attendance %></td>
-    <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
-    <td><%= link_to 'Destroy', attendance, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', object_path(attendance) %></td>
+    <td><%= link_to 'Edit', edit_object_path(attendance) %></td>
+    <td><%= link_to 'Destroy', object_path(attendance), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New attendance', new_attendance_path %>
+<%= link_to 'New attendance', new_object_path %>

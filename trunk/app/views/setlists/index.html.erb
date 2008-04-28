@@ -12,8 +12,8 @@
 <% for setlist in @setlists %>
   <tr>
     <td><%=h setlist.appearance_id %></td>
-    <td><%=h setlist.band_id %></td>
-    <td><%=h setlist.user_id %></td>
+    <td><%=h setlist.band.name %></td>
+    <td><%=h setlist.user.login %></td>
     <td><%=h setlist.approved %></td>
     <td><%=h setlist.performances_cache %></td>
     <td><%= link_to 'Show', setlist %></td>
@@ -25,4 +25,4 @@
 
 <br />
 
-<%= link_to 'New setlist', new_setlist_path %>
+<%= link_to 'New setlist', new_object_path %>

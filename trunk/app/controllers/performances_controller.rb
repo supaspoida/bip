@@ -1,4 +1,12 @@
 class PerformancesController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
+  
+  make_resourceful do
+    actions :all
+    belongs_to :setlist, :song
+  end
+
+=begin
   # GET /performances
   # GET /performances.xml
   def index
@@ -82,4 +90,5 @@ class PerformancesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+=end
 end

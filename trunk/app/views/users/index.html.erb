@@ -15,7 +15,7 @@
     <td><%=h user.email %></td>
     <td><%=h user.created_at %></td>
     <td><%=h user.state %></td>
-    <td><%= link_to 'Show', users_path %></td>
+    <td><%= link_to 'Show', user_path(user) %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

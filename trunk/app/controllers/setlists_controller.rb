@@ -1,4 +1,16 @@
 class SetlistsController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
+  
+  make_resourceful do
+    actions :all
+    belongs_to :user, :appearance
+  end
+  
+  def build_object
+    @current_object ||= current_user.setlists.new(params[:setlist])
+  end
+  
+=begin  
   # GET /setlists
   # GET /setlists.xml
   def index
@@ -82,4 +94,5 @@ class SetlistsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+=end
 end

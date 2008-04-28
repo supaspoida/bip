@@ -2,6 +2,7 @@
   <ul>
     <% unless params[:id].nil? %>
     <%= content_tag :li, (link_to 'shows', band_appearances_path(params[:id])) unless params[:id].nil? %>
+    <%= content_tag :li, (link_to 'setlists', band_setlists_path(params[:id])) unless params[:id].nil? %>
     <% end %>
   </ul>
 </div>

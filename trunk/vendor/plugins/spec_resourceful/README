@@ -1,0 +1,197 @@
+= spec_resourceful
+
+A -blatant thievery- +fork+ of make_resourceful with rspec support built-in instead of test::unit.
+
+I also took some liberties to leverage Rails 2.0's polymorphic_routing to consolidate new/edit forms into
+a single template [form.html.haml instead of separate new.html.haml and edit.html.haml files].
+
+I also _also_ added some nice spec helpers, which will install to lib/spec_resourceful/spec_helpers.rb
+when the spec_resourceful generator is run. I encourage you to check those out. I should make some docs or
+something probably but I don't have time right now.
+
+I might also change some more shit but, as I said before, at the moment I have no time.
+
+Edited from the make_resourceful's README...
+
+== Usage
+
+The easiest way to start with spec_resourceful is to run the spec_resourceful generator.
+It uses the same syntax as the Rails scaffold_resource generator:
+
+  $ script/generate spec_resourceful post title:string body:text
+
+It does, however, require Haml[http://haml.hamptoncatlin.com].
+
+If you want to try make_resourceful on one of your current controllers,
+just replace the mess of repetition with this:
+
+  class FooController < ApplicationController
+    make_resourceful do
+      actions :all
+    end
+  end
+
+Those three lines will replace the entire default controller
+that comes out of the scaffold_resource generator.
+
+=== Can I do nested resources?
+
+  make_resourceful do
+    actions :all
+    belongs_to :post
+  end
+
+=== What if I want to use fancy permalinks?
+
+  def current_object
+    @current_object ||= current_model.find_by_permalink(params[:id])
+  end
+
+=== What about paging?
+
+  def current_objects
+    @current_object ||= current_model.find(:all,
+      :order => "created_at DESC", :page => {:current => params[:page], :size => 10 } )
+  end
+
+=== What if I want to do something in the middle of an action?
+
+  before :show, :index do
+    @page_title = "Awesome!"
+  end
+
+  after :create_fails do
+    @page_title = "Not So Awesome!"
+  end
+
+=== What about all of my awesome respond_to blocks for my XML APIs and RJS responses?
+
+  response_for :show do |format|
+    format.html
+    format.js
+    format.xml
+  end
+
+  response_for :update_fails do |format|
+    format.html { render :action => 'edit' }
+    format.json { render :json => false.to_json, :status => 422 }
+  end
+
+=== So I guess I have to write responses for all my actions?
+
+Nope! make_resourceful makes them do the right thing by default.
+You only need to customize them if you want to do something special.
+
+== Deeper Usage
+
+=== +make_resourceful+ the Method
+
+The +make_resourceful+ block is where most of the action happens.
+Here you specify which actions you want to auto-generate,
+what code you want to run for given callbacks,
+and so forth.
+
+You also use the block to declare various bits of information about your controller.
+For instance, if the controller is nested, you'd call +belongs_to+.
+If you wanted to expose your models as some sort of text format,
+you'd call +publish+.
+
+Check out the documentation of Resourceful::Builder
+for more information on the methods you can call here.
+
+=== Helper Methods
+
+make_resourceful provides lots of useful methods
+that can be used in your callbacks and in your views.
+They range from accessing the records you're looking up
+to easily generating URLs for a record
+to getting information about the action itself.
+
+Two of the most useful methods are +current_object+ and +current_objects+
+(note the subtle plurality difference).
++current_objects+ only works for +index+,
+and returns all the records in the current model.
++current_object+ works for all actions other than +index+,
+and returns the record that's currently being dealt with.
+
+The full documentation of the helper methods
+is in Resourceful::Default::Accessors and Resourceful::Default::URLs.
+
+=== Nested Resources
+
+make_resourceful supports easy management of nested resources.
+This is set up with the Resourceful::Builder#belongs_to declaration.
+Pass in the name of the parent model,
+
+  belongs_to :user
+
+and everything will be taken care of.
+When +index+ is run for GET /users/12/albums,
+parent_object[link:classes/Resourceful/Accessors.html#M000024]
+will get <tt>User.find(params[:user_id])</tt>,
+and current_objects[link:classes/Resourceful/Default/Accessors.html#M000010]
+will get <tt>parent_object.albums</tt>.
+When +create+ is run for POST /users/12/albums,
+the newly created Album will automatically belong to the user
+with id 12.
+
+The normal non-scoped actions still work, too.
+GET /albums/15 runs just fine.
+make_resourceful knows that since there's no <tt>params[:user_id]</tt>,
+you just want to deal with the album.
+
+You can even have a single resource nested under several different resources.
+Just pass multiple parent names to the Resourceful::Builder#belongs_to, like
+
+  belongs_to :user, :artist
+
+Then /users/15/albums and /artists/7/albums will both work.
+
+This does, however, mean that make_resourceful only supports one level of nesting.
+There's no automatic handling of /users/15/collections/437/albums.
+However, this is really the best way to organize most resources anyway;
+see this article[http://weblog.jamisbuck.org/2007/2/5/nesting-resources].
+
+If you really need a deeply nested controller,
+it should be easy enough to set up on your own.
+Just override current_model[link:classes/Resourceful/Default/Accessors.html#M000018].
+See the next section for more details.
+
+=== Overriding Methods
+
+Not only are helper methods useful to the developer to use,
+they're used internally by the actions created by make_resourceful.
+Thus one of the main ways make_resourceful can be customized
+is by overriding accessors.
+
+For instance, if you want to only look up the 10 most recent records for +index+,
+you're override +current_objects+.
+If you wanted to use a different model than that suggested by the name of the controller,
+you'd override +current_model+.
+
+When you're overriding methods that do SQL lookups, though, be a little cautious.
+By default, these methods cache their values in instance variables
+so that multiple SQL queries aren't run on multiple calls.
+When overriding them, it's wise for you to do the same.
+For instance,
+
+  def current_object
+    @current_object ||= current_model.find_by_name(params[:name])
+  end
+
+---
+
+spec_resourceful - Copyright 2008 Russell Norris
+
+make_resourceful - Copyright 2007 Hampton Catlin, Nathan Weizenbaum, and Jeff Hardy.
+
+with contributions by:
+
+* Russell Norris
+* Jonathan Linowes
+* Cristi Balan
+* Mike Ferrier
+* James Golick
+* Don Petersen
+* Alex Ross
+* Tom Stuart

@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20080402090312) do
     t.integer  "appearance_id"
     t.integer  "band_id"
     t.integer  "user_id"
-    t.integer  "performances_cache"
+    t.integer  "performances_cache", :default => 0
     t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"

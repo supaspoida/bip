@@ -1,4 +1,11 @@
 class SongsController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
+  make_resourceful do
+    actions :all
+    belongs_to :band, :setlist
+  end
+  
+=begin
   # GET /songs
   # GET /songs.xml
   def index
@@ -82,4 +89,5 @@ class SongsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+=end
 end
