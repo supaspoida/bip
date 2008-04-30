@@ -2,7 +2,7 @@ class CreateSetlists < ActiveRecord::Migration
   def self.up
     create_table :setlists do |t|
       t.integer :appearance_id, :band_id, :user_id 
-      t.integer :performances_cache, :default => 0
+      t.integer :performances_count, :default => 0
       t.boolean :approved
 
       t.timestamps

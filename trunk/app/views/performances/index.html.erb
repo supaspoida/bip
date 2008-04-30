@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Appearance</th>
+    <th>Setlist</th>
     <th>Song</th>
     <th>Notes</th>
     <th>Position</th>
@@ -11,12 +11,12 @@
 
 <% for performance in @performances %>
   <tr>
-    <td><%=h performance.appearance_id %></td>
-    <td><%=h performance.song_id %></td>
+    <td><%=h performance.setlist_id %></td>
+    <td><%=h performance.song.name %></td>
     <td><%=h performance.notes %></td>
     <td><%=h performance.position %></td>
     <td><%=h performance.segue %></td>
-    <td><%= link_to 'Show', performance %></td>
+    <td><%= link_to 'Show', setlist_performances_path(performance.setlist) %></td>
     <td><%= link_to 'Edit', edit_performance_path(performance) %></td>
     <td><%= link_to 'Destroy', performance, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

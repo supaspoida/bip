@@ -13,7 +13,7 @@
     <td><%=h song.name %></td>
     <td><%=h song.lyrics %></td>
     <td><%= link_to 'Show', song %></td>
-    <td><%= link_to 'Edit', edit_song_path(song) %></td>
+    <td><%= link_to 'Edit', edit_object_path(song) %></td>
     <td><%= link_to 'Destroy', song, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -21,4 +21,4 @@
 
 <br />
 
-<%= link_to 'New song', new_song_path %>
+<%= link_to 'New song', new_object_path %>

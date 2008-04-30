@@ -1,6 +1,6 @@
 <p>
   <b>Band:</b>
-  <%=h @song.band_id %>
+  <%=h @song.band.name %>
 </p>
 
 <p>
@@ -14,5 +14,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_song_path(@song) %> |
-<%= link_to 'Back', songs_path %>
+<%= link_to 'Edit', edit_object_path(@song) %> |
+<%= link_to 'Back', object_path %>

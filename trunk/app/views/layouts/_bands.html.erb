@@ -3,10 +3,12 @@
     <% unless params[:id].nil? %>
     <%= content_tag :li, (link_to 'shows', band_appearances_path(params[:id])) unless params[:id].nil? %>
     <%= content_tag :li, (link_to 'setlists', band_setlists_path(params[:id])) unless params[:id].nil? %>
+    <li><%= link_to 'songs', band_songs_path(@band) %></li>
     <% end %>
   </ul>
 </div>
 
 <div id="bands_content">
+  <%= content_tag :h1, @band.name unless params[:id].nil? %>
   <%= yield %>
 </div>

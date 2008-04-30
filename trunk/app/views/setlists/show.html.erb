@@ -1,16 +1,9 @@
-<p>
-  <b>Appearance:</b>
-  <%=h @setlist.appearance_id %>
-</p>
+<h1><%= @setlist.band.name %>, <%= @setlist.venue.name %></h1>
+<h2><%= @setlist.show.date %>.</h2>
 
 <p>
-  <b>Band:</b>
-  <%=h @setlist.band.name %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h @setlist.user_id %>
+  <b>Posted by:</b>
+  <%=h @setlist.user.login %>
 </p>
 
 <p>
@@ -19,9 +12,13 @@
 </p>
 
 <p>
-  <b>Performances cache:</b>
-  <%=h @setlist.performances_cache %>
+  <b>Songs:</b>
+  <%=h @setlist.performances_count %>
 </p>
+
+<% @setlist.performances.each_with_index do |performance, i| %>
+  <%= performance.song.name -%><%= delimiter(performance, i) -%>
+<% end %>
 
 
 <%= link_to 'Edit', edit_setlist_path(@setlist) %> |

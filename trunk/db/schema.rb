@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080402090312) do
+ActiveRecord::Schema.define(:version => 20080430004806) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "band_id"
@@ -45,18 +45,17 @@ ActiveRecord::Schema.define(:version => 20080402090312) do
   end
 
   create_table "performances", :force => true do |t|
-    t.integer  "appearance_id"
     t.integer  "song_id"
     t.integer  "position"
     t.text     "notes"
     t.boolean  "segue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "setlist_id"
   end
 
   create_table "setlists", :force => true do |t|
     t.integer  "appearance_id"
-    t.integer  "band_id"
     t.integer  "user_id"
     t.integer  "performances_cache", :default => 0
     t.boolean  "approved"
