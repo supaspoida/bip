@@ -1,0 +1,18 @@
+<% form_for(@setlist) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+		<%= f.label :approved %><br />
+    <%= f.check_box :approved %>
+  </p>
+  <p>
+		<%= f.label :performances_cache %><br />
+    <%= f.text_field :performances_cache %>
+  </p>
+  <%= f.hidden_field(:appearance_id, :value => params[:appearance_id]) %>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', setlists_path %>

@@ -1,0 +1,12 @@
+<div id="shows_navigation">
+  <ul>
+    <% unless params[:id].nil? %>
+    <%= content_tag :li, (link_to 'appearances', show_appearances_path(params[:id])) unless params[:id].nil? %>
+    <%= content_tag :li, (link_to 'attendances', show_attendances_path(params[:id])) %>
+    <% end %>
+  </ul>
+</div>
+
+<div id="shows_content">
+  <%= yield %>
+</div>

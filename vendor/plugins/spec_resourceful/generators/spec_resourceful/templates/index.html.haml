@@ -1,0 +1,19 @@
+%table
+  - if @<%= plural_name %>.empty?
+    %tr.empty
+      %td
+        %p== There are no <%= plural_name.humanize.downcase %>
+  - else
+    %thead
+      %tr
+        %th Customize this show link column header!
+        %th Customize this edit link column header!
+        %th.delete= # Header intentionally blank!
+    %tbody
+      - @<%= plural_name %>.each do |<%= singular_name %>|
+        %tr{:class => cycle("odd", "even")}
+          %td= button_to "View this <%= singular_name %>", <%= singular_name %>_path(<%= singular_name %>), :method => :get
+          %td= button_to "Edit this <%= singular_name %>", edit_<%= singular_name %>_path(<%= singular_name %>), :method => :get
+          %td.delete= button_to "Delete", <%= singular_name %>, :method => :delete
+.command
+  = link_to "Create <%= singular_name.titleize %>", new_<%= singular_name %>_path

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>fileTriggers</key>
+        <dict>
+            <key>create_appe</key>
+            <string>db\migrate\20080402085548_create_appearances.rb</string>
+            <key>create_ate</key>
+            <string>db\migrate\20080402085446_create_attendances.rb</string>
+            <key>create_ba</key>
+            <string>db\migrate\20080402085224_create_bands.rb</string>
+            <key>create_perfo</key>
+            <string>db\migrate\20080402085718_create_performances.rb</string>
+            <key>create_set</key>
+            <string>db\migrate\20080402090312_create_setlists.rb</string>
+            <key>create_so</key>
+            <string>db\migrate\20080402085318_create_songs.rb</string>
+        </dict>
+    </dict>
+</plist>
