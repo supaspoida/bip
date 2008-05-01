@@ -25,6 +25,7 @@
       <div id="primary">
         <%= get_flash %>
         <%= render :partial => "layouts/#{view_layout(@sub_layout)}", :layout => "layouts/#{controller_layout}" %>
+        <%#= debug assigns %>
       </div>
     </div>
     

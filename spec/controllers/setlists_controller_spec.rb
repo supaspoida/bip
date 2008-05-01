@@ -1,15 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SetlistsController do
-  describe "handling GET /setlists" do
-
-    before(:each) do
-      @setlist = mock_model(Setlist)
-      Setlist.stub!(:find).and_return([@setlist])
-    end
+  include SpecResourceful::SpecHelpers::Controllers
+  
+  before(:each) do
+    @setlist, @setlists = mock_resourceful!(Setlist)
+  end
+  
+  describe "GET :index" do
   
     def do_get
-      get :index
+      get :index, params
     end
   
     it "should be successful" do
@@ -22,55 +23,17 @@ describe SetlistsController do
       response.should render_template('index')
     end
   
-    it "should find all setlists" do
-      Setlist.should_receive(:find).with(:all).and_return([@setlist])
-      do_get
-    end
   
     it "should assign the found setlists for the view" do
       do_get
-      assigns[:setlists].should == [@setlist]
+      assigns[:setlists].should == @setlists
     end
   end
 
-  describe "handling GET /setlists.xml" do
-
-    before(:each) do
-      @setlists = mock("Array of Setlists", :to_xml => "XML")
-      Setlist.stub!(:find).and_return(@setlists)
-    end
+  describe "GET :show" do
   
     def do_get
-      @request.env["HTTP_ACCEPT"] = "application/xml"
-      get :index
-    end
-  
-    it "should be successful" do
-      do_get
-      response.should be_success
-    end
-
-    it "should find all setlists" do
-      Setlist.should_receive(:find).with(:all).and_return(@setlists)
-      do_get
-    end
-  
-    it "should render the found setlists as xml" do
-      @setlists.should_receive(:to_xml).and_return("XML")
-      do_get
-      response.body.should == "XML"
-    end
-  end
-
-  describe "handling GET /setlists/1" do
-
-    before(:each) do
-      @setlist = mock_model(Setlist)
-      Setlist.stub!(:find).and_return(@setlist)
-    end
-  
-    def do_get
-      get :show, :id => "1"
+      get :show, params.merge(:id => @setlist.id)
     end
 
     it "should be successful" do
@@ -82,11 +45,7 @@ describe SetlistsController do
       do_get
       response.should render_template('show')
     end
-  
-    it "should find the setlist requested" do
-      Setlist.should_receive(:find).with("1").and_return(@setlist)
-      do_get
-    end
+
   
     it "should assign the found setlist for the view" do
       do_get
@@ -94,40 +53,11 @@ describe SetlistsController do
     end
   end
 
-  describe "handling GET /setlists/1.xml" do
-
+  describe "GET :new" do
+    
     before(:each) do
-      @setlist = mock_model(Setlist, :to_xml => "XML")
-      Setlist.stub!(:find).and_return(@setlist)
-    end
-  
-    def do_get
-      @request.env["HTTP_ACCEPT"] = "application/xml"
-      get :show, :id => "1"
-    end
-
-    it "should be successful" do
-      do_get
-      response.should be_success
-    end
-  
-    it "should find the setlist requested" do
-      Setlist.should_receive(:find).with("1").and_return(@setlist)
-      do_get
-    end
-  
-    it "should render the found setlist as xml" do
-      @setlist.should_receive(:to_xml).and_return("XML")
-      do_get
-      response.body.should == "XML"
-    end
-  end
-
-  describe "handling GET /setlists/new" do
-
-    before(:each) do
-      @setlist = mock_model(Setlist)
-      Setlist.stub!(:new).and_return(@setlist)
+      login
+      @user.setlists.stub!(:new).and_return(@setlist)
     end
   
     def do_get
@@ -139,36 +69,26 @@ describe SetlistsController do
       response.should be_success
     end
   
-    it "should render new template" do
+    it "should render the form template" do
       do_get
-      response.should render_template('new')
-    end
-  
-    it "should create an new setlist" do
-      Setlist.should_receive(:new).and_return(@setlist)
-      do_get
-    end
-  
-    it "should not save the new setlist" do
-      @setlist.should_not_receive(:save)
-      do_get
+      response.should render_template(:form)
     end
   
     it "should assign the new setlist for the view" do
       do_get
-      assigns[:setlist].should equal(@setlist)
+      assigns[:setlist].should == @setlist
     end
   end
 
-  describe "handling GET /setlists/1/edit" do
+  describe "GET :edit" do
 
     before(:each) do
-      @setlist = mock_model(Setlist)
-      Setlist.stub!(:find).and_return(@setlist)
+      login
+      params[:id] = @setlist.id
     end
   
     def do_get
-      get :edit, :id => "1"
+      get :edit, params
     end
 
     it "should be successful" do
@@ -178,12 +98,7 @@ describe SetlistsController do
   
     it "should render edit template" do
       do_get
-      response.should render_template('edit')
-    end
-  
-    it "should find the setlist requested" do
-      Setlist.should_receive(:find).and_return(@setlist)
-      do_get
+      response.should render_template(:form)
     end
   
     it "should assign the found Setlist for the view" do
@@ -195,25 +110,28 @@ describe SetlistsController do
   describe "handling POST /setlists" do
 
     before(:each) do
-      @setlist = mock_model(Setlist, :to_param => "1")
-      Setlist.stub!(:new).and_return(@setlist)
+      login
+      @user.setlists.stub!(:new).and_return(@setlist)
+      @setlist.stub!(:save).and_return(true)
     end
     
     describe "with successful save" do
   
       def do_post
         @setlist.should_receive(:save).and_return(true)
-        post :create, :setlist => {}
+        post :create, params
       end
   
       it "should create a new setlist" do
-        Setlist.should_receive(:new).with({}).and_return(@setlist)
-        do_post
+        lambda do
+          @setlist.should_receive(:save).and_return(true)
+          post :create, :setlist => {}
+        end.should change(Setlist, :count).by(1)
       end
 
       it "should redirect to the new setlist" do
         do_post
-        response.should redirect_to(setlist_url("1"))
+        response.should redirect_to(setlist_path(@setlist))
       end
       
     end
@@ -227,7 +145,7 @@ describe SetlistsController do
   
       it "should re-render 'new'" do
         do_post
-        response.should render_template('new')
+        response.should render_template(:form)
       end
       
     end
@@ -309,5 +227,9 @@ describe SetlistsController do
       do_delete
       response.should redirect_to(setlists_url)
     end
+  end
+  
+  def create_setlist(options = {})
+    post :create, :setlist => { :appearance_id => 1, :user_id => 1, :performances_count => 0, :approved => 1}.merge(options)
   end
 end

@@ -53,7 +53,7 @@ Spec::Runner.configure do |config|
   end
   
   def login
-    @user = mock_model(User)
+    @user = mock_model(User, :setlists => mock([]))
     controller.stub!(:current_user).and_return(@user)
   end
 end
