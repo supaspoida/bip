@@ -46,3 +46,13 @@ Story: Working with setlist data
     
     Then the performance should be valid
     And the performance should be tagged with set II
+    
+  Scenario: Changing to encore
+  
+    Given a setlist with 10 performances
+    And a song 'Froglegs'
+    
+    When I start and encore with 'Frog Legs'
+    
+    Then the performance should be valid
+    And the performance should be tagged with set II
