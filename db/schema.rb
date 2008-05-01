@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080430004806) do
+ActiveRecord::Schema.define(:version => 20080501195343) do
 
   create_table "appearances", :force => true do |t|
-    t.integer  "band_id"
-    t.integer  "show_id"
+    t.integer  "band_id",    :limit => 11
+    t.integer  "show_id",    :limit => 11
     t.boolean  "headliner"
     t.text     "notes"
     t.datetime "created_at"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20080430004806) do
   end
 
   create_table "attendances", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "show_id"
+    t.integer  "user_id",    :limit => 11
+    t.integer  "show_id",    :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20080430004806) do
   end
 
   create_table "pages", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.string   "title",      :null => false
+    t.integer  "user_id",    :limit => 11, :null => false
+    t.string   "title",                    :null => false
     t.string   "permalink"
     t.text     "body"
     t.datetime "created_at"
@@ -45,26 +45,42 @@ ActiveRecord::Schema.define(:version => 20080430004806) do
   end
 
   create_table "performances", :force => true do |t|
-    t.integer  "song_id"
-    t.integer  "position"
+    t.integer  "song_id",    :limit => 11
+    t.integer  "position",   :limit => 11
     t.text     "notes"
     t.boolean  "segue"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "setlist_id"
+    t.integer  "setlist_id", :limit => 11
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name",              :limit => 40
+    t.string   "authorizable_type", :limit => 40
+    t.integer  "authorizable_id",   :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :force => true do |t|
+    t.integer  "user_id",    :limit => 11
+    t.integer  "role_id",    :limit => 11
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "setlists", :force => true do |t|
-    t.integer  "appearance_id"
-    t.integer  "user_id"
-    t.integer  "performances_cache", :default => 0
+    t.integer  "appearance_id",      :limit => 11
+    t.integer  "user_id",            :limit => 11
+    t.integer  "performances_count", :limit => 11, :default => 0
     t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "shows", :force => true do |t|
-    t.integer  "venue_id"
+    t.integer  "venue_id",     :limit => 11
     t.datetime "date"
     t.datetime "announced_at"
     t.time     "doors"
@@ -74,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20080430004806) do
   end
 
   create_table "songs", :force => true do |t|
-    t.integer  "band_id"
+    t.integer  "band_id",    :limit => 11
     t.string   "name"
     t.text     "lyrics"
     t.datetime "created_at"

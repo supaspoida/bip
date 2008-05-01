@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
   has_many :attendances
   has_many :shows, :through => :attendances
   has_many :setlists
+  
+  acts_as_authorized_user_through
+  acts_as_authorizable
+  
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
