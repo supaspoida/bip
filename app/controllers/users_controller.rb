@@ -3,6 +3,10 @@ class UsersController < ApplicationController
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
   
+  make_resourceful do
+    actions :all, :except => [:create, :destroy]
+  end
+=begin 
   def index
     @users = User.find(:all)
 
@@ -15,7 +19,7 @@ class UsersController < ApplicationController
   # render new.rhtml
   def new
   end
-
+=end
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
