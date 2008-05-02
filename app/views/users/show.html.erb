@@ -1,0 +1,13 @@
+<% div_for(@user) do  %>
+  <h1><%= @user.login %></h1>
+<% end %>
+
+<% @user.setlists.find(:all, :limit => 10).each do |setlist| %>
+  <div>
+    <h3><%= setlist.appearance.band.name %></h3>
+  <% setlist.performances.each do |performance| %>
+    <%= performance.song.name %>
+  <% end %>    
+  </div>
+
+<% end %>
