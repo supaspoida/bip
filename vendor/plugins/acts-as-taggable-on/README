@@ -1,0 +1,81 @@
+ActsAsTaggableOn
+================
+
+This plugin is heavily based on Acts as Taggable on Steroids by Jonathan Viney. While
+basic tagging functionality is handled expertly as well as tag cloud calculations, for
+many applications there may be a need to have several "tag fields" for a given model.
+
+For instance, in a social network, a user might have tags that are called skills,
+interests, sports, and more. There is no real way to differentiate between tags and
+so an implementation of this type is not possible with acts as taggable on steroids.
+
+Enter Acts as Taggable On. Rather than tying functionality to a specific keyword
+(namely "tags"), acts as taggable on allows you to specify an arbitrary number of
+tag "contexts" that can be used locally or in combination in the same way steroids
+was used.
+
+Installation
+============
+
+The simplest way is just to install straight from the SVN:
+
+script/plugin install http://svn.intridea.com/svn/public/acts_as_taggable_on
+
+Testing
+=======
+
+Acts As Taggable On uses RSpec for its test coverage. If you already have RSpec on your
+application, the specs will run while using:
+
+rake spec:plugins
+
+Example
+=======
+
+class User < ActiveRecord::Base
+  acts_as_taggable_on :tags, :skills, :interests
+end
+
+@user = User.new(:name => "Bobby")
+@user.tag_list = "awesome, slick, hefty"      # this should be familiar
+@user.skill_list = "joking, clowning, boxing" # but you can do it for any context!
+@user.skill_list # => ["joking","clowning","boxing"] as TagList
+@user.save
+
+@user.tags # => [<Tag name:"awesome">,<Tag name:"slick">,<Tag name:"hefty">]
+@user.skills # => [<Tag name:"joking">,<Tag name:"clowning">,<Tag name:"boxing">]
+
+User.find_tagged_with("awesome", :on => :tags) # => [@user]
+User.find_tagged_with("awesome", :on => :skills) # => []
+
+@frankie = User.create(:name => "Frankie", :skill_list => "joking, flying, eating")
+User.skill_counts # => [<Tag name="joking" count=2>,<Tag name="clowning" count=1>...]
+@frankie.skill_counts
+
+Dynamic Tag Contexts
+====================
+
+In addition to the generated tag contexts in the definition, it is also possible
+to allow for dynamic tag contexts (this could be user generated tag contexts!)
+
+@user = User.new(:name => "Bobby")
+@user.set_tag_list_on(:customs, "same, as, tag, list")
+@user.tag_list_on(:customs) # => ["same","as","tag","list"]
+@user.save
+@user.tags_on(:customs) # => [<Tag name='same'>,...]
+@user.tag_counts_on(:customs)
+User.find_tagged_with("same", :on => :customs) # => [@user]
+
+Caveats, Uncharted Waters
+=========================
+
+This plugin is still under active development. Tag caching has not 
+been thoroughly (or even casually) tested and may not work as expected.
+
+Resources
+=========
+
+GitHub - http://github.com/mbleigh/acts-as-taggable-on
+Lighthouse - http://mbleigh.lighthouseapp.com/projects/10116-acts-as-taggable-on
+
+Copyright (c) 2007 Michael Bleigh (http://mbleigh.com/) and Intridea Inc. (http://intridea.com/), released under the MIT license
