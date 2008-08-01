@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20080501195343) do
   create_table "roles_users", :force => true do |t|
     t.integer  "user_id",    :limit => 11
     t.integer  "role_id",    :limit => 11
-    t.string   "state"
+    t.string   "state",                    :default => "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
